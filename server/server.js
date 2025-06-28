@@ -2,6 +2,7 @@ require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const path = require("node:path");
+const connectDB = require("./config/db.js");
 
 const app = express();
 
@@ -16,6 +17,8 @@ app.use(
 
 // parse JSON bodies
 app.use(express.json());
+
+connectDB();
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () =>
