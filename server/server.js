@@ -3,6 +3,7 @@ const express = require("express");
 const cors = require("cors");
 const path = require("node:path");
 const connectDB = require("./config/db.js");
+const authRoutes = require("./routes/authRoute.js");
 
 const app = express();
 
@@ -19,6 +20,11 @@ app.use(
 app.use(express.json());
 
 connectDB();
+
+app.use("/api/v1/auth", authRoutes);
+
+// server uploads folder
+app.use("/uploads", express.static(path.json(__dirname, "uploads")));
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () =>
