@@ -12,7 +12,7 @@ const router = express.Router();
 
 router.post("/add", protect, addIncome);
 router.get("/get", protect, getAllIncome);
-router.get("/download", protect, deleteIncome);
-router.delete("/:id", protect, DownloadIncome);
+router.get("/download", protect, DownloadIncome);
+router.delete("/:id", protect, deleteIncome);
 
 module.exports = router;
