@@ -36,7 +36,7 @@ exports.getDashboardData = async (req, res) => {
       (sum, transaction) => sum + transaction.amount,
       0
     );
-
+    // fetch last 5 transactions (income + expenses)
     const lastTransactions = [
       ...(await Income.find({ userId }).sort({ date: -1 }).limit(5)).map(
         (txn) => ({
@@ -52,7 +52,8 @@ exports.getDashboardData = async (req, res) => {
       ),
     ].sort((a, b) => b.date - a.date);
     res.json({
-      totalBalance: (totalIncome[0]?.total || 0) - (totalExpenses[0]?.total || 0),
+      totalBalance:
+        (totalIncome[0]?.total || 0) - (totalExpenses[0]?.total || 0),
       totalIncome: totalIncome[0]?.total || 0,
       totalExpenses: totalExpenses[0]?.total || 0,
       last30DaysExpenses: {
@@ -64,7 +65,7 @@ exports.getDashboardData = async (req, res) => {
         transactions: last60DaysIncomeTransactions,
       },
       recentTransactions: lastTransactions,
-    })
+    });
   } catch (err) {
     res.status(500).json({
       message: "Server Error In Get Dashboard Data",
