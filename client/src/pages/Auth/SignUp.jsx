@@ -4,6 +4,8 @@ import AuthLayout from "../../components/layouts/AuthLayout";
 import Input from "../../components/Inputs/Input";
 import ProfilePhotoSelector from "../../components/Inputs/ProfilePhotoSelector";
 import { validateEmail } from "../../utils/helper";
+import axiosInstance from "../../utils/axiosInstance";
+import { API_PATHS } from "../../utils/api";
 
 const SignUp = () => {
   const [profilePic, setProfilePic] = useState(null);
@@ -30,6 +32,25 @@ const SignUp = () => {
     }
     setError("");
     // signup api call
+        try {
+      const response = await axiosInstance.post(API_PATHS.AUTH.REGISTER, {
+        profileImageUrl: profileImageUrl,
+        fullName,
+        email,
+        password,
+      });
+      const { token, user } = response.data;
+      if (token) {
+        localStorage.setItem("token", token);
+        navigate("/dashboard");
+      }
+    } catch (error) {
+      if (error.response && error.response.data.message) {
+        setError(error.response.data.message);
+      } else {
+        setError("Something went wrong. Please try again.");
+      }
+    }
   };
 
   return (
