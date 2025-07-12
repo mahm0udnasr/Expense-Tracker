@@ -4,6 +4,7 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
+import UserProvider from "./context/userContext";
 import Login from "./pages/Auth/Login";
 import SignUp from "./pages/Auth/SignUp";
 import Home from "./pages/Dashboard/Home";
@@ -12,7 +13,7 @@ import Expense from "./pages/Dashboard/Expense";
 
 const App = () => {
   return (
-    <div>
+    <UserProvider>
       <Router>
         <Routes>
           <Route path="/" element={<Root />} />
@@ -23,7 +24,7 @@ const App = () => {
           <Route path="/expense" exact element={<Expense />} />
         </Routes>
       </Router>
-    </div>
+    </UserProvider>
   );
 };
 
