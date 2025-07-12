@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { UserContext } from "../../context/userContext";
 import { Link, useNavigate } from "react-router-dom";
+import uploadImage from "../../utils/uploadImage";
 import AuthLayout from "../../components/layouts/AuthLayout";
 import Input from "../../components/Inputs/Input";
 import ProfilePhotoSelector from "../../components/Inputs/ProfilePhotoSelector";
@@ -13,6 +15,9 @@ const SignUp = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
+
+  const { updateUser } = useContext(UserContext);
+
   const navigate = useNavigate();
   // handle signup form submit
   const handleSignup = async (e) => {
@@ -32,7 +37,13 @@ const SignUp = () => {
     }
     setError("");
     // signup api call
-        try {
+    try {
+      // upload image if present
+      if (profilePic) {
+        const imageUploadRes = await uploadImage(profilePic);
+        profileImageUrl = imageUploadRes.imageUrl || "";
+      }
+
       const response = await axiosInstance.post(API_PATHS.AUTH.REGISTER, {
         profileImageUrl: profileImageUrl,
         fullName,
@@ -42,6 +53,7 @@ const SignUp = () => {
       const { token, user } = response.data;
       if (token) {
         localStorage.setItem("token", token);
+        updateUser(user);
         navigate("/dashboard");
       }
     } catch (error) {
