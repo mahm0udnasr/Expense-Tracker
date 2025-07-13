@@ -32,9 +32,9 @@ const SideMenu = ({ activeMenu }) => {
         ) : (
           <CharAvatar
             fullName={user?.fullName}
-            width='w-20'
-            height='h-20'
-            style='text-xl'
+            width="w-20"
+            height="h-20"
+            style="text-xl"
           />
         )}
         <h5 className="text-gray-950 font-medium leading-6">
