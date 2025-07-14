@@ -6,7 +6,6 @@ import {
   YAxis,
   CartesianGrid,
   Tooltip,
-  Legend,
   ResponsiveContainer,
   Cell,
 } from "recharts";
@@ -59,7 +58,6 @@ const CustomBarChar = ({ data }) => {
             ))}
           </Bar>
         </BarChart>
-        {/* <Legend content={CustomLegend} /> */}
       </ResponsiveContainer>
     </div>
   );
