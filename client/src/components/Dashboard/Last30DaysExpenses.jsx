@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { prepareExpenseBarCharData } from "../../utils/helper";
-import CustomBarChar from "../Charts/CustomBarChar";
+import CustomBarChart from "../Charts/CustomBarChart";
 
 const Last30DaysExpenses = ({ data }) => {
   const [chartData, setChartData] = useState([]);
@@ -13,7 +13,7 @@ const Last30DaysExpenses = ({ data }) => {
       <div className="flex items-center justify-between">
         <h5 className="text-lg">Last 30 Days Expenses</h5>
       </div>
-      <CustomBarChar data={chartData} />
+      <CustomBarChart data={chartData} />
     </div>
   );
 };
